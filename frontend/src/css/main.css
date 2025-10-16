@@ -1,0 +1,14 @@
+  @font-face {
+    font-family: "Roboto";
+    src: url("@/fonts/Roboto-Regular.ttf") format("truetype");
+    width: 400;
+  }
+  
+  body {
+    background-color: rgba(24,24,24, 1);
+    color: #000000;
+    font-family: "Roboto";
+    min-height: 100vh;
+  }
+
+  
