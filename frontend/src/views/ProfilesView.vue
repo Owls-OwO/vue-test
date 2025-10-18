@@ -1,4 +1,8 @@
 <template>
+    <div class="dev">
+        <pre>{{profileStore.profiles}}</pre>
+
+    </div>
 
     <div class="profile-window">
         <div class="profile-window__container">
@@ -21,10 +25,13 @@
                         <div class="profile-table__text-password">Пароль</div>
                     </div>
                     <div class="profile-table__profiles-list">
-                        <ProfileForm/>
-                        <ProfileForm/>
-                        <ProfileForm/>
-                        <ProfileForm/>
+                        <ProfileForm v-for="profile in profileStore.profiles"
+                            :key="profile.id"
+                            :marker="profile.marker"
+                            :login="profile.login"
+                            :password="profile.password"
+                            :type="profile.type"
+                        />
                     </div>
                 </div>
             </div>  
@@ -37,13 +44,27 @@
 
 <script setup lang="ts">
 import ProfileForm from '@/components/ProfileForm.vue';
+import { useProfileStore } from '@/stores/useProfileStore';
 
+const profileStore = useProfileStore();
 
 
 
 </script>
 
 <style scoped>
+    .dev{
+        position: fixed;
+        top: 20px;
+        left: 40px;
+
+        background-color: white;
+
+        min-height: 30px;
+        max-width: 500px;
+        border-radius: 4px;
+        padding: 8px;
+    }
     main {
         display: flex;
         flex-direction: column;
@@ -99,7 +120,7 @@ import ProfileForm from '@/components/ProfileForm.vue';
         gap: 6px; 
         background-color: rgba(64, 140, 255, 0.219);
         border-radius: 4px;
-        padding: 4px 8px;
+        padding: 8px 12px;
     }
     .profile-window__hint-wrapper span:nth-child(1) {
         border: 2px solid #000000;

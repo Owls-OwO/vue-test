@@ -3,35 +3,53 @@
         <div class="profile-form__container">
             
             <div class="profile-form__field-wrapper">
-                <input class="profile-form__marker-input" type="text" placeholder="XXX;YYY;III">
+                <input class="profile-form__marker-input" type="text" placeholder="XXX;YYY;III" v-model="markerInput">
             </div>
 
             <div class="profile-form__field-wrapper">
-                <select class="profile-form__record-type-selecter" id="record-type" v-model="selectedType">
+                <select class="profile-form__record-type-selecter" v-model="selectedType">
                     <option value="local">Локальная</option>
                     <option value="LDAP">LDAP</option>
                 </select>
             </div>
 
-            <div class="profile-form__field-wrapper" :class="{'field--wide': !isVisible}">
-                <input class="profile-form__login-input" type="text" placeholder="значение">
+            <div class="profile-form__field-wrapper" :class="{'field--wide': isPasswordHidden}">
+                <input class="profile-form__login-input" type="text" placeholder="значение" v-model="loginInput">
             </div>
 
-            <div class="profile-form__field-wrapper" :class="{'field--hidden': !isVisible}">
-                <input class="profile-form__password-input" type="password" placeholder=" * * * ">
+            <div class="profile-form__field-wrapper" v-show="!isPasswordHidden">
+                <input class="profile-form__password-input" type="password" placeholder=" * * * " v-model="passwordInput">
             </div>
 
-            
+
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref} from 'vue';
 
-let selectedType = ref('local');
+const props = defineProps<{
+    marker?: string;
+    login?: string;
+    password?: string;
+    type?: string;
+}>();
 
-const isVisible = computed(() => selectedType.value === 'local')
+
+
+
+const selectedType = ref(props.type || 'local');
+const markerInput = ref(props.marker || '');
+const loginInput = ref(props.login || '');
+const passwordInput = ref(props.password || '');
+
+
+const isPasswordHidden = computed(() => selectedType.value === 'LDAP')
+
+
+
+
 </script>
 
 <style scoped>
@@ -66,10 +84,6 @@ const isVisible = computed(() => selectedType.value === 'local')
 
 }
 
-
-.field--hidden {
-    display: none;
-}
 .field--wide {
     grid-column: span 2;
 }
