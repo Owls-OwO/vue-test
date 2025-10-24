@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <RouterView to="/profilesview"/>
+    <RouterView/>
   </main>
   
 </template>

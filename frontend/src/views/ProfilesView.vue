@@ -8,7 +8,7 @@
         <div class="profile-window__container">
             <div class="profile-window__button-wrapper">
                 <span>Учетные записи</span>
-                <button class="profile-window__button">+</button>
+                <button class="profile-window__button" @click="profileStore.addProfile">+</button>
             </div>
             <div class="profile-window__hint-wrapper">
                 <span>?</span>
@@ -23,14 +23,15 @@
                         <div class="profile-table__text-record-type">Тип записи</div>
                         <div class="profile-table__text-login">Логин</div>
                         <div class="profile-table__text-password">Пароль</div>
+                        <div class="profile-table__empty-delete-column"></div>
                     </div>
                     <div class="profile-table__profiles-list">
-                        <ProfileForm v-for="profile in profileStore.profiles"
+                        <ProfileForm
+                            v-for="profile in profileStore.profiles"
                             :key="profile.id"
-                            :marker="profile.marker"
-                            :login="profile.login"
-                            :password="profile.password"
-                            :type="profile.type"
+                            :profile="profile"
+                            @update:profile="profileStore.updateProfile"
+                            @delete:profile="profileStore.deleteProfile"
                         />
                     </div>
                 </div>
@@ -45,9 +46,12 @@
 <script setup lang="ts">
 import ProfileForm from '@/components/ProfileForm.vue';
 import { useProfileStore } from '@/stores/useProfileStore';
+import { onMounted } from 'vue';
 
 const profileStore = useProfileStore();
-
+onMounted(() => {
+    profileStore.loadFromLocalStorage();
+})
 
 
 </script>
@@ -142,7 +146,7 @@ const profileStore = useProfileStore();
         display: grid;
         color: rgba(0, 0, 0, 0.5);
         
-        grid-template-columns: 1.1fr 0.9fr 1fr 1fr 
+        grid-template-columns: 1.1fr 0.9fr 1fr 1fr 0.1fr;
     }
     .profile-table__profiles-list {
         margin-top: 4px;
