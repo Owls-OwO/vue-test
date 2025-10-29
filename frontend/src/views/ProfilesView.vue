@@ -149,7 +149,7 @@ onMounted(() => {
         grid-template-columns: 1.1fr 0.9fr 1fr 1fr 0.1fr;
     }
     .profile-table__profiles-list {
-        margin-top: 4px;
+        margin-top: 8px;
         display: flex;
         flex-direction: column;
         gap: 8px;
