@@ -67,7 +67,6 @@ const profile = ref({
     });
 
 const isPasswordHidden = computed(() => profile.value.type === 'LDAP')
-if (profile.value.password === null) {validatedInputs.value.password = false}
 
 
 
@@ -94,7 +93,7 @@ function updateProfile(input: string) {
                 changedField = {[key]: profile.value[key as keyof Profile]}
                 
                 // Очищаем поле модалки если выбран тип LDAP
-                if (changedField.type && changedField.type === 'LDAP') {profile.value.password = null} else {validatedInputs.value.password = false}
+                if (changedField.type && changedField.type === 'LDAP') {profile.value.password = null}
                 
             }
 
