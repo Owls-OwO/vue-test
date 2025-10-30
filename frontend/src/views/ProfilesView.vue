@@ -1,9 +1,4 @@
 <template>
-    <div class="dev">
-        <pre>{{profileStore.profiles}}</pre>
-
-    </div>
-
     <div class="profile-window">
         <div class="profile-window__container">
             <div class="profile-window__button-wrapper">

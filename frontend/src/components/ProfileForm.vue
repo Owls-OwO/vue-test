@@ -41,9 +41,6 @@
             </div>
         </div>
     </div>
-    <div class="dev-modal">
-        <pre>{{ validatedInputs }}</pre>
-    </div>
 </template>
 
 <script setup lang="ts">
@@ -100,7 +97,6 @@ function updateProfile(input: string) {
             // Проверка валидации, затем обновление валидируемых данных, иначе ошибка
             if (validateProfile(changedField) || key === 'type') {
                 if (!validatedInputs.value[key]) {validatedInputs.value[key] = !validatedInputs.value[key]}
-                console.log('Validated:', changedField)
                 emit('update:profile', {
                     id: profile.value.id,
                     update: changedField
@@ -112,6 +108,8 @@ function updateProfile(input: string) {
             // Обновляем original экземпляр объекта Profile
             original.value = { ...profile.value };
             break;
+
+            
         }
     }
 }
